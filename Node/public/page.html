@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href="./styles.css" rel="stylesheet" type="text/css"> -->
+    <style type="text/css">
+        .title {
+          background-color: #d8da3d 
+        }
+        .reg-button {
+            margin-top: 15px;
+        }
+
+    </style>
+    <title>ToDo</title>
+</head>
+<body>
+    <div class="title"><h1>ToDo App</h1></div>
+    <div>Nombre</div>
+    <input type="text" id='nombre' onchange="handlechangeName()"/>
+    <div>Correo Electrónico</div>
+    <input type="text" id='email' onchange="handlechangeEmail()"/><br>
+    <button class='reg-button' type='button' onclick="handleclick()"><a id='link' href=`${url}`>Registro</a></button>
+    <script>
+        let name = '';
+        let email = '';
+        let url = 'http://127.0.0.1:3000/home/'
+        function handlechangeName() {
+            var x = document.getElementById('nombre')
+            name = x.value
+        }
+        function handlechangeEmail() {
+            var x = document.getElementById('email')
+            email = x.value
+        }
+        function handleclick(){
+            url = `http://127.0.0.1:3000/home/${name}`
+            document.getElementById("link").setAttribute("href",url);
+            console.log(url)
+        }
+    </script>
+</body>
+</html>
