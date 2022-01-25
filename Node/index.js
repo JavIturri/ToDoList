@@ -11,8 +11,6 @@ let pageHtml = '';
 let src = '';
 let compiled = '';
 
-let names =JSON.parse(fs.readFileSync('./data/data.json', {'encoding': 'utf-8'})) 
-
 app.get('/home', (req, res) => {
     fs.readFile('./public/page.html', (err,data)=>{
         if (err) {
