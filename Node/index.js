@@ -13,15 +13,14 @@ let pageHtml = '';
 let src = '';
 
 //Servir estáticos html, css y js
+
 app.use('/static', express.static('./public/static'));
 
 app.post('/html/tasks', (request,response)=>{
-    let task = ''
-    task = request.body
+    let task = request.body
     console.log(task)
-    res.writeHead(404, {'Content-Type':'text/plain;charset=UTF-8'})
-    res.write('Tarea registrada')
-    res.end()
+    response.send(task)
+    response.end()
 })
 
 //Compilar, renderizar y servir con plantilla DustJS
