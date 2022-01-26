@@ -2,6 +2,7 @@ const fs = require('fs');
 const express = require('express')
 var dust = require('dustjs-helpers');
 const res = require('express/lib/response');
+const { json } = require('express/lib/response');
 
 const app = express()
 app.use(express.json())
@@ -13,13 +14,24 @@ let pageHtml = '';
 let src = '';
 
 //Servir estáticos html, css y js
+let taskdb =JSON.parse(fs.readFileSync('./db/tasks.json')) 
 
 app.use('/static', express.static('./public/static'));
 
-app.post('/html/tasks', (request,response)=>{
-    let task = request.body
-    console.log(task)
-    response.send(task)
+
+app.get('/tasks', (req, res) => {
+    res.writeHead(200, 'application/json')
+    res.write(taskdb)
+    res.end()
+})
+
+app.post('/html/posttasks', (request,response)=>{
+
+    let newtask = request.body
+    console.log(taskdb)
+    let newtaskdb = taskdb.push(newtask)
+    
+    response.send(newtask)
     response.end()
 })
 
