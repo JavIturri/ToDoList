@@ -1,0 +1,17 @@
+body {
+  text-align: center;
+  background-color: #78c2df;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.add-button {
+  background-color: blue;
+  color: white;
+  border-width: 0px;
+  margin-top: 15px;
+  width: 100px;
+  height: 30px;
+}
+.add-button:hover {
+  cursor: pointer;
+}

@@ -1,4 +1,4 @@
-{>"layout.dust" /}
+{>"layout" /}
 
 {<title}
     this is | {title}

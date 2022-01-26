@@ -1,8 +1,7 @@
 const fs = require('fs');
 const express = require('express')
 var dust = require('dustjs-helpers');
-const { json } = require('express/lib/response');
-const axios = require('axios')
+const res = require('express/lib/response');
 
 const app = express()
 app.use(express.json())
@@ -12,21 +11,33 @@ const port = 3000;
 
 let pageHtml = '';
 let src = '';
-let compiled = '';
 
+//Servir estáticos html, css y js
+app.use('/static', express.static('./public/static'));
+
+app.post('/html/tasks', (request,response)=>{
+    let task = ''
+    task = request.body
+    console.log(task)
+    res.writeHead(404, {'Content-Type':'text/plain;charset=UTF-8'})
+    res.write('Tarea registrada')
+    res.end()
+})
+
+//Compilar, renderizar y servir con plantilla DustJS
 const info = JSON.parse(fs.readFileSync('./public/context/data.json')) 
-
-app.get('/home', (req, res, next) => {
+app.get('/dust', (req, res, next) => {
     fs.readFile('./public/views/layout.dust', (err,data)=>{
         if (err) {
             console.log('Error')
         } else {
             src = data.toString();
-            var compiled = dust.compile(src, 'home')
+            var compiled = dust.compile(src, 'dust')
             dust.loadSource(compiled);
-            dust.render('home', info, (err,out)=>{
+            dust.render('dust', info, (err,out)=>{
                 if (err) {
                     next()
+                    console.log('error')
                 } else {
                     pageHtml = out 
                     res.writeHead(200, {'content-type':'text/html'})
@@ -38,43 +49,7 @@ app.get('/home', (req, res, next) => {
     })
 })
 
-app.get('/html', (req,res,next)=>{
-    const html = fs.readFileSync('./public/trash/home.html', {'encoding': 'utf-8'})
-    res.writeHead(200, {'content-type':'text/html'})
-    res.write(html)
-    res.end();
-})
-
-app.post('/html/tasks', (request,response)=>{
-    let task = ''
-    task = request.body
-    console.log(task)
-})
-
-app.get('/home/:id', (req, res, next) => {
-    const id = req.params.id
-    fs.readFile('./public/hello.dust', (err,data)=>{
-        if(err){
-            console.log('error')
-            next()
-        } else {
-            src = data.toString()
-            var compiled = dust.compile(src, 'hello');
-            dust.loadSource(compiled);
-            dust.render('hello', { name: id }, (err, out) => {
-                if (err) {
-                    next()
-                } else {
-                    pageHtml = out 
-                    res.writeHead(200, {'content-type':'text/html'})
-                    res.write(pageHtml)
-                    res.end();
-                }
-            })
-        }
-    })
-})
-
+// En caso de Error redirige a esta salida
 app.use('/', (req,res,next)=>{
     res.writeHead(404, {'Content-Type':'text/plain;charset=UTF-8'})
     res.write('Página no encontrada')
@@ -82,5 +57,6 @@ app.use('/', (req,res,next)=>{
 })
 
 app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/home`);
+  console.log(`Server running at http://${hostname}:${port}/static/home.html`);
+  console.log(`Server running at http://${hostname}:${port}/dust`);
 })
