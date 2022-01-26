@@ -56,6 +56,8 @@ app.use('/', (req,res,next)=>{
     res.end();
 })
 
+
+//Server listen
 app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/static/home.html`);
   console.log(`Server running at http://${hostname}:${port}/dust`);
