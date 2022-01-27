@@ -14,24 +14,27 @@ let pageHtml = '';
 let src = '';
 
 //Servir estáticos html, css y js
-let taskdb =JSON.parse(fs.readFileSync('./db/tasks.json')) 
+// Leer BD ()
+const file = fs.readFileSync('./db/tasks.json', 'utf-8', ) 
+let taskdb = JSON.parse(file)
+/* console.log(taskdb.tasks[0].name)
+console.log(typeof(taskdb)) */
+
+
 
 app.use('/static', express.static('./public/static'));
 
 
 app.get('/tasks', (req, res) => {
-    res.writeHead(200, 'application/json')
-    res.write(taskdb)
-    res.end()
+    res.writeHead(200, {'Content-Type': 'application/json'})
+    res.end(JSON.stringify(taskdb))
 })
 
 app.post('/html/posttasks', (request,response)=>{
-
-    let newtask = request.body
-    console.log(taskdb)
-    let newtaskdb = taskdb.push(newtask)
-    
-    response.send(newtask)
+    const newtask = request.body
+    console.log(newtask)
+    taskdb.tasks.push(newtask)
+    response.send(taskdb)
     response.end()
 })
 

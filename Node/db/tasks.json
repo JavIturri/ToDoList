@@ -1,5 +1,7 @@
-[
+{
+   "tasks": [
     { "name": "estudiar DustJS"},
     { "name": "Entrenar"}
-]
+    ]
+}
     

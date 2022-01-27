@@ -2,5 +2,5 @@ POST http://127.0.0.1:3000/html/posttasks
 Content-Type: application/json
 
 {
-    "name": "Comer"
+    "name": "jugar"
 }

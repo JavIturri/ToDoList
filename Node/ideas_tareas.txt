@@ -1,0 +1,11 @@
+Tareas
+------------------
++ Index.js leer DB asíncrono (.then etc...)
++ Seguir con DustJS
++ Añadir Routes
++ Añadir variables con rutas a archivos, entorno, etc...
+
+
+Ideas
+-------------------
++ Mirar response.render(html)
