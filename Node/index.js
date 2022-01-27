@@ -22,7 +22,12 @@ console.log(typeof(taskdb)) */
 
 
 
-app.use('/static', express.static('./public/static'));
+app.use(express.static(__dirname ));
+//console.log(__dirname)
+
+app.get('/home', (req,res)=>{
+    res.sendFile(__dirname + '/public/static/home.html')
+})
 
 
 app.get('/tasks', (req, res) => {
@@ -36,6 +41,11 @@ app.post('/html/posttasks', (request,response)=>{
     taskdb.tasks.push(newtask)
     response.send(taskdb)
     response.end()
+})
+
+app.get('/ToDo/List', (req, res)=>{
+    
+    res.sendFile(__dirname + '/public/static/list.html')
 })
 
 //Compilar, renderizar y servir con plantilla DustJS
