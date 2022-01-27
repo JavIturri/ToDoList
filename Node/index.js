@@ -27,12 +27,14 @@ app.use(express.static(__dirname ));
 
 app.get('/home', (req,res)=>{
     res.sendFile(__dirname + '/public/static/home.html')
+    
 })
 
 
 app.get('/tasks', (req, res) => {
     res.writeHead(200, {'Content-Type': 'application/json'})
     res.end(JSON.stringify(taskdb))
+    res.end()
 })
 
 app.post('/html/posttasks', (request,response)=>{
@@ -43,9 +45,10 @@ app.post('/html/posttasks', (request,response)=>{
     response.end()
 })
 
-app.get('/ToDo/List', (req, res)=>{
+app.get('/ToDo/List', (req, res, next)=>{
     
     res.sendFile(__dirname + '/public/static/list.html')
+    
 })
 
 //Compilar, renderizar y servir con plantilla DustJS

@@ -15,3 +15,7 @@ body {
 .add-button:hover {
   cursor: pointer;
 }
+
+a {
+  color: white;
+}
